@@ -37,7 +37,7 @@ public class Utils implements ResourceAccessor{
     }
 
     public enum CellType {
-        PRIMARY,UNIQUE,COMMIT,DEFAULT,UNKNOWN,NOTNULL
+        PRIMARY,UNIQUE,COMMIT,DEFAULT,UNKNOWN,NOTNULL,AUTOINCRE
     }
     public static CellType parserCellType(Cell cell){
         int r,g,b;
@@ -50,6 +50,9 @@ public class Utils implements ResourceAccessor{
         r = 0xFF & rgb[0];
         g = 0xFF & rgb[1];
         b = 0xFF & rgb[2];
+        if(Math.abs(r-b) < 16 && g < r/2){
+            return CellType.AUTOINCRE;
+        }
         if(r > g + b){
             return CellType.PRIMARY;
         }
