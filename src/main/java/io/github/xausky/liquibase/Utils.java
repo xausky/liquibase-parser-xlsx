@@ -2,7 +2,6 @@ package io.github.xausky.liquibase;
 
 import liquibase.Contexts;
 import liquibase.Liquibase;
-import liquibase.configuration.LiquibaseConfiguration;
 import liquibase.database.core.MySQLDatabase;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.logging.Logger;
@@ -75,18 +74,5 @@ public class Utils implements ResourceAccessor{
                 return false;
         }
         return true;
-    }
-
-    public static void main(String[] args){
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/test?useSSL=false","root","root");
-            MySQLDatabase database = new MySQLDatabase();
-            database.setConnection(new JdbcConnection(connection));
-            Liquibase liquibase = new Liquibase("example.xlsx", new Utils(), database);
-            liquibase.dropAll();
-            liquibase.update(new Contexts());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }
